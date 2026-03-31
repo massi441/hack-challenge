@@ -19,7 +19,7 @@ void maliciousDesctructor(void* validator) {
     return;
 }
 
-// Medium difficulty constant
+// Medium difficulty constants
 static constexpr const char* ValidatorSymbol = "validator"; // for if the binary contains symbols
 
 // Hard difficulty constants
@@ -41,8 +41,8 @@ static MaliciousVtable maliciousVtable = MaliciousVtable();
 // On macos, the variable for running a process with a dynamic library is : DYLD_INSERT_LIBRARIES
 // e.g. DYLD_INSERT_LIBRARIES=./mylib.dylib ./main
 // Note: a dynamic library is a library that gets dynamically linked to a program at runtime
-// '__attribute__((constructor))' means the inject() function is executed when the dynamically is linked. it's like a "main"
-// function, but for a dynamic library.
+// '__attribute__((constructor))' means the inject() function is executed when the library is linked.
+// it's like a "main" function, but for a dynamic library.
 // the same logic can be used on windows to inject code dynamically into a process
 
 __attribute__((constructor))
