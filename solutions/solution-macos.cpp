@@ -10,6 +10,7 @@ void maliciousHasher(void* validator, std::string password) {
 
 // malicious password checker
 bool maliciousChecker(void* validator, std::string password) {
+    std::cout << "Injection successful, bypassing auth entirely" << std::endl;
     return true; // return true to by pass auth entirely
 }
 
