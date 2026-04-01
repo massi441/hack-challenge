@@ -1,13 +1,18 @@
 #include <iostream>
 #include <random>
 
-// Thus, the base PasswordValidator class. '= 0' on a function marks it as abtstract.
+// The base PasswordValidator class. " = 0" on a function marks it as abtstract.
 // Thus, the class becomes abstract since it has at least one absract method.
 // Hint:
 //  The class has at least one virtual function. A virtual function makes a class polymorphic.
-//  For every instance of a polymorphic class, the compiler adds a hidden 'vtable' pointer at offset 0x0 on the object instance
+//  For every instance of a polymorphic class, the compiler adds a hidden 'vtable' pointer at offset 0x0 of the object instance
 //  That vtable pointer is a pointer to an array of functions: In this case of a PasswordValidator, the array of functions 
 //  would contain entries for : <checkPassword>, <hashPassword>, and ~PasswordValidator. (This can be verified in Ghidra)
+//
+//  In memory, a PasswordValidator instance would look like this:
+//      0x0 : vtable_pointer
+//
+//  Where vtable pointer is a pointer to the array of functions mentioned just above
 class PasswordValidator {
 public:
     virtual bool checkPassword(std::string pwd) = 0;
@@ -71,6 +76,7 @@ bool authenticate(PasswordValidator* validator) {
 
 // The **global** instance of the password validator used by the program
 // Hint: This validator instance is the vulnerability/entry point for the code injection
+// A good idea would be to re-read the hint at the top of this file.
 RandomPasswordValidator validator = RandomPasswordValidator();
 
 int main() {
