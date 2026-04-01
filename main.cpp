@@ -15,8 +15,8 @@
 //  Where vtable_pointer is a pointer to the array of functions mentioned just above
 class PasswordValidator {
 public:
-    virtual bool checkPassword(std::string pwd) = 0;
     virtual void hashPassword(std::string pwd) = 0;
+    virtual bool checkPassword(std::string pwd) = 0;
     virtual ~PasswordValidator() {}
 };
 
@@ -87,6 +87,9 @@ int main() {
     } else {
         std::cout << "Access denied, invalid password" << std::endl;
     }
+
+    std::cin.get();
+    std::cin.get();
 
     return 0;
 }
