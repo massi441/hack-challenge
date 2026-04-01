@@ -12,7 +12,7 @@
 //  In memory, a PasswordValidator instance would look like this:
 //      0x0 : vtable_pointer
 //
-//  Where vtable pointer is a pointer to the array of functions mentioned just above
+//  Where vtable_pointer is a pointer to the array of functions mentioned just above
 class PasswordValidator {
 public:
     virtual bool checkPassword(std::string pwd) = 0;
@@ -20,7 +20,7 @@ public:
     virtual ~PasswordValidator() {}
 };
 
-// Concrete implementation of a passsword validator, note that this class is not used anywhere in the program,
+// Concrete implementation of a passsword validator. Note that this class is not used anywhere in the program,
 // it's simply defined to add more artifacts to analyze in the decompiler.
 class SecurePasswordValidator : public PasswordValidator {
 public:
@@ -34,8 +34,8 @@ public:
 };
 
 // A random password validator. This is the actual password validator used by the program.
-// What makes it so hard to guess the password is that it generates a new random password everytime, which is basically
-// impossible to guess. This is why the solution requires bypassing the authentication system entirely.
+// What makes it so hard to guess the password is that this validator generates a new random password everytime, which is basically
+// impossible to guess. This is why the exploit requires bypassing the authentication system entirely.
 class RandomPasswordValidator : public PasswordValidator {
 public:
     void hashPassword(std::string pwd) override {
@@ -63,7 +63,7 @@ private:
     }
 };
 
-// the function called to authenticate the user when the program starts. It takes a pointer to a PasswordValidator,
+// The function called to authenticate the user when the program starts. It takes a pointer to a PasswordValidator,
 // meaning the underlying type can be any implementation of PasswordValidator.
 bool authenticate(PasswordValidator* validator) {
     std::cout << "Enter your password: ";
@@ -74,8 +74,8 @@ bool authenticate(PasswordValidator* validator) {
     return validator->checkPassword(pwd);
 }
 
-// The **global** instance of the password validator used by the program
-// Hint: This validator instance is the vulnerability/entry point for the code injection
+// The **global** instance of the password validator used by the program.
+// Hint: This validator instance is the vulnerability/entry point for the code injection.
 // A good idea would be to re-read the hint at the top of this file.
 RandomPasswordValidator validator = RandomPasswordValidator();
 
