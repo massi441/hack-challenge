@@ -35,10 +35,11 @@ int main() {
         return -1;
     }
 
-    SIZE_T dll_path_length = strlen(dll_path) + 1;
+    SIZE_T dll_path_length = strlen(dll_path) + 1; // +1 for the null terminator
 
     // https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualallocex
-    // for allocating memory inside the admin process
+    // for allocating the dll_path string inside the admin process. we will use that string to pass it to the dll loader function later on.
+    // note that this is just a memory allocation, nothing is written yet.
     LPVOID injected_dll_path = VirtualAllocEx(
         process_info.hProcess,
         NULL,
@@ -53,6 +54,7 @@ int main() {
     }
 
     // https://learn.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-writeprocessmemory
+    // this actually writes the string to the memory that was just allocated 
     BOOL memory_written = WriteProcessMemory(
         process_info.hProcess,
         injected_dll_path,
@@ -82,7 +84,7 @@ int main() {
         NULL,
         0,
         dll_loader,
-        injected_dll_path,
+        injected_dll_path, // the string that was allocated earlier
         0,
         NULL
     );

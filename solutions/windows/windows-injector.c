@@ -28,7 +28,7 @@ static struct FakeValidator fake_validator;
 bool fake_check() {
     // from here we can also call any other custom function that we want.
     // for example if this was a game we could install a cheat that gives us infinite health, or maybe infinite coins.
-    // we pretty much have full control over the program from here
+    // we pretty much have full control over the program from here, that's why code injection is so powerful
     printf("Bypassing auth.\n");
     return true;
 }
